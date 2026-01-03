@@ -3,6 +3,7 @@ import joblib
 import numpy as np
 
 app = Flask(__name__)
+
 model = joblib.load("model.pkl")
 
 @app.route("/", methods=["GET", "POST"])
@@ -10,12 +11,11 @@ def index():
     prediction = None
 
     if request.method == "POST":
-        reading = int(request.form["reading"])
-        writing = int(request.form["writing"])
-        test_prep = int(request.form["test_prep"])
-        parent_edu = int(request.form["parent_edu"])
+        study_hours = float(request.form["study_hours"])
+        attendance = float(request.form["attendance"])
+        previous_score = float(request.form["previous_score"])
 
-        features = np.array([[reading, writing, test_prep, parent_edu]])
+        features = np.array([[study_hours, attendance, previous_score]])
         prediction = round(model.predict(features)[0], 2)
 
     return render_template("index.html", prediction=prediction)

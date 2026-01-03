@@ -4,21 +4,20 @@ import joblib
 from sklearn.linear_model import LinearRegression
 from sklearn.model_selection import train_test_split
 
-# Generate sample dataset
+# Create sample dataset
 np.random.seed(42)
 
 data = {
-    "reading_score": np.random.randint(40, 100, 300),
-    "writing_score": np.random.randint(40, 100, 300),
-    "test_prep": np.random.randint(0, 2, 300),   # 0 = No, 1 = Yes
-    "parent_edu": np.random.randint(0, 3, 300),  # Encoded
-    "math_score": np.random.randint(40, 100, 300)
+    "study_hours": np.random.randint(1, 10, 200),
+    "attendance": np.random.randint(60, 100, 200),
+    "previous_score": np.random.randint(40, 90, 200),
+    "final_score": np.random.randint(45, 100, 200)
 }
 
 df = pd.DataFrame(data)
 
-X = df.drop("math_score", axis=1)
-y = df["math_score"]
+X = df.drop("final_score", axis=1)
+y = df["final_score"]
 
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
 
